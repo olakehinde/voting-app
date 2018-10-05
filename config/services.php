@@ -35,4 +35,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'facebook' => [
+    'client_id' => env('FB_CLIENT_ID'),         // Your facebook Client ID
+    'client_secret' => env('FB_CLIENT_SECRET'), // Your facbook Client Secret
+    'redirect' => env('FB_CLIENT_REDIRECT'),
+],
+
 ];
