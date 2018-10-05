@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSettingsTable extends Migration
+class CreateVotingsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,11 @@ class CreateSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('settings', function (Blueprint $table) {
+        Schema::create('votings', function (Blueprint $table) {
             $table->increments('id');
-            $table->datetime('nomination_start_date');
-            $table->datetime('nomination_end_date');
-            $table->datetime('voting_start_date');
-            $table->datetime('voting_end_date');
+            $table->integer('user_id');
+            $table->integer('nomination_id');
+            $table->integer('category_id');
             $table->softDeletes();
             $table->timestamps();
         });
@@ -31,6 +30,6 @@ class CreateSettingsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('settings');
+        Schema::dropIfExists('votings');
     }
 }

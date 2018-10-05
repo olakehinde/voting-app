@@ -25,6 +25,7 @@ class CreateNominationsTable extends Migration
             $table->integer('user_id');
             $table->boolean('is_won')->default(0);
             $table->boolean('is_admin_selected')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }
