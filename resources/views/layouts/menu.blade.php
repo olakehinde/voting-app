@@ -14,3 +14,7 @@
     <a href="{!! route('settings.index') !!}"><i class="fa fa-edit"></i><span>Settings</span></a>
 </li>
 
+<li class="{{ Request::is('users*') ? 'active' : '' }}">
+    <a href="{!! route('users.index') !!}"><i class="fa fa-edit"></i><span>Users</span></a>
+</li>
+

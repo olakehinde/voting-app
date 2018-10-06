@@ -31,3 +31,5 @@ Route::resource('nominations', 'NominationController');
 Route::resource('roles', 'RoleController');
 
 Route::resource('settings', 'SettingController');
+
+Route::resource('users', 'UserController');
