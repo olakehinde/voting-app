@@ -10,3 +10,7 @@
     <a href="{!! route('roles.index') !!}"><i class="fa fa-edit"></i><span>Roles</span></a>
 </li>
 
+<li class="{{ Request::is('settings*') ? 'active' : '' }}">
+    <a href="{!! route('settings.index') !!}"><i class="fa fa-edit"></i><span>Settings</span></a>
+</li>
+

@@ -29,3 +29,5 @@ Route::resource('categories', 'CategoryController');
 Route::resource('nominations', 'NominationController');
 
 Route::resource('roles', 'RoleController');
+
+Route::resource('settings', 'SettingController');
