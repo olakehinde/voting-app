@@ -18,3 +18,7 @@
     <a href="{!! route('users.index') !!}"><i class="fa fa-edit"></i><span>Users</span></a>
 </li>
 
+<li class="{{ Request::is('votings*') ? 'active' : '' }}">
+    <a href="{!! route('votings.index') !!}"><i class="fa fa-edit"></i><span>Votings</span></a>
+</li>
+

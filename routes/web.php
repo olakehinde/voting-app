@@ -33,3 +33,5 @@ Route::resource('roles', 'RoleController');
 Route::resource('settings', 'SettingController');
 
 Route::resource('users', 'UserController');
+
+Route::resource('votings', 'VotingController');
