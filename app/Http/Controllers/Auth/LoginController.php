@@ -58,7 +58,7 @@ class LoginController extends Controller
     public function handleProviderCallback()
     {
         $userFbDetails = Socialite::driver('facebook')->user();
-
+        
         $user = User::where('email', $userFbDetails->user['email'])->first();
 
         if ($user) {
