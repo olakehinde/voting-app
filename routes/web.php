@@ -28,10 +28,12 @@ Route::resource('categories', 'CategoryController');
 
 Route::resource('nominations', 'NominationController');
 
-Route::resource('roles', 'RoleController');
-
-Route::resource('settings', 'SettingController');
-
-Route::resource('users', 'UserController');
-
 Route::resource('votings', 'VotingController');
+
+Route::middleware(['admin'])->group(function() {
+	Route::resource('roles', 'RoleController');
+	Route::resource('settings', 'SettingController');
+	Route::resource('users', 'UserController');	
+});
+
+
