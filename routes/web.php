@@ -25,3 +25,5 @@ Route::get('register', 'Auth\LoginController@redirectToProvider')->name('registe
 
 
 Route::resource('categories', 'CategoryController');
+
+Route::resource('nominations', 'NominationController');
