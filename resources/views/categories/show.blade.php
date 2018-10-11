@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            Category
+            Category <small> > {!! $category->name !!}</small>
         </h1>
     </section>
     <div class="content">
