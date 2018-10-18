@@ -63,3 +63,6 @@ Route::middleware(['admin', 'moderator'])->group(function() {
 
 
 
+
+
+Route::resource('nominationUsers', 'NominationUserController');

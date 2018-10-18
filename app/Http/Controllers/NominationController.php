@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use Auth;
+use App\Models\Nomination; 
+use App\Models\NominationUser; 
 
 class NominationController extends AppBaseController
 {
@@ -56,12 +59,42 @@ class NominationController extends AppBaseController
     public function store(CreateNominationRequest $request)
     {
         $input = $request->all();
+        $input['user_id'] = Auth::user()->id;
 
-        $nomination = $this->nominationRepository->create($input);
+        // check db if nomination already exists
+        $nominationCheck = Nomination::where('name', $request->input['name'])->first();
 
-        Flash::success('Nomination saved successfully.');
+        if ($nominationCheck) {
+            if ($nominationCheck['user_id'] != Auth::user()->id) {
+                $no_of_nominations = $nominationCheck['no_of_nominations']; 
+                $input['no_of_nominations'] = $no_of_nominations + 1;
 
-        return redirect(route('nominations.index'));
+                $this->nominationRepository->update('no_of_nominations', $input['no_of_nominations'], $nominationCheck['id']);
+
+                NominationUser::create([
+                    'user_id' => Auth::user()->id,
+                    'category_id' => $request->input['category_id'],
+                    'nomination_id' => $nominationCheck->id
+                ]);
+            }
+            
+            Flash::success('You already nominated ' . $nominationCheck['name']);
+
+        }
+        else {
+            $input['no_of_nominations']  = 1;
+            $nomination = $this->nominationRepository->create($input);
+                
+            NominationUser::create([
+                'user_id' => Auth::user()->id,
+                'category_id' => $request->input['category_id'],
+                'nomination_id' => $nomination->id
+            ]);
+        }
+        
+        Flash::success('Nomination submitted successfully.');
+
+        return redirect()->back();
     }
 
     /**

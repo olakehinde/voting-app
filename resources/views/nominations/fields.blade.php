@@ -12,8 +12,12 @@
 
 <!-- Gender Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('gender', 'Gender:') !!}
-    {!! Form::text('gender', null, ['class' => 'form-control']) !!}
+    <label for="gender">Gender</label>
+    <select class="form-control" id="gender" name="gender">
+        <option value="" selected="selected">Select</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+    </select>
 </div>
 
 <!-- Occupation Field -->
@@ -28,22 +32,24 @@
     {!! Form::text('reasons_for_nomination', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Category Id Field -->
+@if(isset($category->id))
+<div class="form-group col-sm-6">
+    {!! Form::hidden('category_id', $category->id, ['class' => 'form-control']) !!}
+</div>
+@else
+<div class="form-group col-sm-6">
+    {!! Form::hidden('category_id', null, ['class' => 'form-control']) !!}
+</div>
+@endif
+
+
+@if(Auth::user()->role_id < 3)
+
 <!-- No Of Nominations Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('no_of_nominations', 'No Of Nominations:') !!}
     {!! Form::number('no_of_nominations', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- Category Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('category_id', 'Category Id:') !!}
-    {!! Form::number('category_id', null, ['class' => 'form-control']) !!}
-</div>
-
-<!-- User Id Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('user_id', 'User Id:') !!}
-    {!! Form::number('user_id', null, ['class' => 'form-control']) !!}
 </div>
 
 <!-- Is Won Field -->
@@ -63,9 +69,9 @@
         {!! Form::checkbox('is_admin_selected', '1', null) !!} 1
     </label>
 </div>
+@endif
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
     {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
-    <a href="{!! route('nominations.index') !!}" class="btn btn-default">Cancel</a>
 </div>

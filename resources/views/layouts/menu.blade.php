@@ -29,3 +29,7 @@
 
 
 
+<li class="{{ Request::is('nominationUsers*') ? 'active' : '' }}">
+    <a href="{!! route('nominationUsers.index') !!}"><i class="fa fa-edit"></i><span>Nomination Users</span></a>
+</li>
+
