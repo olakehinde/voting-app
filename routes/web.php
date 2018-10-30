@@ -31,12 +31,8 @@ Route::middleware(['auth'])->group(function() {
 	Route::resource('users', 'UserController');
 });
 
-// only admin and moderators can access
-Route::middleware(['admin', 'moderator'])->group(function() {
-	// only admin can see this
-	Route::resource('roles', 'RoleController')->middleware('admin');
-	Route::resource('settings', 'SettingController')->middleware('admin');
-
+// only admin and moderators can access this routes
+Route::middleware(['moderator'])->group(function() {
 	// users
 	Route::get('users', 'UserController@index');	
 	Route::delete('users/{id}', 'UserController@destroy');	
@@ -59,6 +55,12 @@ Route::middleware(['admin', 'moderator'])->group(function() {
 	Route::patch('votings/{id}', 'VotingController@update');	
 	Route::delete('votings/{id}', 'VotingController@destroy');
 
+	// only admin can access this routes
+	Route::middleware(['admin'])->group(function() {
+		Route::resource('roles', 'RoleController');
+		Route::resource('users', 'UserController');
+		Route::resource('settings', 'SettingController');
+	});
 });
 
 
