@@ -62,24 +62,29 @@ class NominationController extends AppBaseController
         $input['user_id'] = Auth::user()->id;
 
         // check db if nomination already exists
-        $nominationCheck = Nomination::where('name', $request->input['name'])->first();
+        $nominationCheck = Nomination::where('name', $request->input('name'))->first();
 
         if ($nominationCheck) {
             if ($nominationCheck['user_id'] != Auth::user()->id) {
                 $no_of_nominations = $nominationCheck['no_of_nominations']; 
                 $input['no_of_nominations'] = $no_of_nominations + 1;
 
-                $this->nominationRepository->update('no_of_nominations', $input['no_of_nominations'], $nominationCheck['id']);
+                $this->nominationRepository->update([
+                    'no_of_nominations' => $input['no_of_nominations']
+                    ],
+                    $nominationCheck['id']
+                );
 
                 NominationUser::create([
                     'user_id' => Auth::user()->id,
-                    'category_id' => $request->input['category_id'],
-                    'nomination_id' => $nominationCheck->id
+                    'category_id' => $request->input('category_id'),
+                    'nomination_id' => $nominationCheck['id']
                 ]);
             }
             
-            Flash::success('You already nominated ' . $nominationCheck['name']);
-
+            Flash::success('You have already nominated ' . $nominationCheck['name']);
+            
+            return redirect()->back();
         }
         else {
             $input['no_of_nominations']  = 1;
@@ -87,7 +92,7 @@ class NominationController extends AppBaseController
                 
             NominationUser::create([
                 'user_id' => Auth::user()->id,
-                'category_id' => $request->input['category_id'],
+                'category_id' => $request->input('category_id'),
                 'nomination_id' => $nomination->id
             ]);
         }
