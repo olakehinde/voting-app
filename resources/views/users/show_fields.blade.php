@@ -1,4 +1,4 @@
-<div class="col-md-6 offset-3">
+ <div class="col-md-6 offset-3">
     <div class="box box-widget widget-user">
         <!-- Add the bg color to the header using any of the bg-* classes -->
         <div class="widget-user-header bg-aqua-active">
