@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
+use App\Models\NominationUser;
+use App\Models\Nomination;
+use Auth;
 
 class CategoryController extends AppBaseController
 {
@@ -79,6 +82,20 @@ class CategoryController extends AppBaseController
             Flash::error('Category not found');
 
             return redirect(route('categories.index'));
+        }
+
+        // check if the logged in viewer has alredy nominated a candidate in this category
+        $hasNominatedBefore = 0;
+        $nominationUser = NominationUser::where('user_id', Auth::user()->id)->where('category_id', $id)->first();
+
+        if ($nominationUser) {
+            $hasNominatedBefore = 1;
+             // get the details of the candidate nominated
+            $nominatedCandidate = Nomination::find($nominationUser['nomination_id']);
+
+        return view('categories.show')->with('category', $category)
+                                      ->with('nominatedCandidate', $nominatedCandidate)
+                                      ->with('hasNominatedBefore', $hasNominatedBefore);
         }
 
         return view('categories.show')->with('category', $category);
