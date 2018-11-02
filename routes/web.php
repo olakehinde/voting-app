@@ -23,7 +23,13 @@ Route::get('login/facebook', 'Auth\LoginController@redirectToProvider')->name('l
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('register', 'Auth\LoginController@redirectToProvider')->name('register');
 
-
+// all logged in users can access
+Route::middleware(['auth'])->group(function() {
+	Route::resource('categories', 'CategoryController');
+	Route::resource('nominations', 'NominationController');
+	Route::resource('votings', 'VotingController');
+	Route::resource('users', 'UserController');
+});
 
 // only admin and moderators can access this routes
 Route::middleware(['moderator'])->group(function() {
@@ -49,21 +55,22 @@ Route::middleware(['moderator'])->group(function() {
 	Route::patch('votings/{id}', 'VotingController@update');	
 	Route::delete('votings/{id}', 'VotingController@destroy');
 
-	// only admin can access this routes
-	Route::middleware(['admin'])->group(function() {
-		Route::resource('roles', 'RoleController');
-		Route::resource('users', 'UserController');
-		Route::resource('settings', 'SettingController');
-	});
-});
-
-// all logged in users can access
-Route::middleware(['auth'])->group(function() {
 	Route::resource('categories', 'CategoryController');
 	Route::resource('nominations', 'NominationController');
 	Route::resource('votings', 'VotingController');
-	Route::resource('users', 'UserController');
+
+	// only admin can access this routes
+	Route::middleware(['admin'])->group(function() {
+		Route::resource('roles', 'RoleController');
+		Route::resource('nominations', 'NominationController');
+		Route::resource('votings', 'VotingController');
+		Route::resource('users', 'UserController');
+		Route::resource('settings', 'SettingController');
+		Route::resource('categories', 'CategoryController');
+	});
 });
+
+
 
 
 
