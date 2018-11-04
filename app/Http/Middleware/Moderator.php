@@ -16,7 +16,7 @@ class Moderator
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user()->role_id < 3) {
+        if (Auth::check() && Auth::user()->role_id < 3) {
             return $next($request);
         }
         return redirect('home');
