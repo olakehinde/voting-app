@@ -20,8 +20,21 @@
             </td>
             <td>{!! $nomination->occupation !!}</td>
             <td>{!! $nomination->no_of_nominations !!}</td>
-            <td>{!! $nomination->is_won !!}</td>
-            <td>{!! $nomination->is_admin_selected !!}</td>
+            <td>
+                @if($nomination->is_won == 1)
+                <p>Yes</p>
+                @else
+                <p>No</p>
+                @endif
+            </td>
+            <td>
+                @if($nomination->is_admin_selected == 1)
+                <p>Yes</p>
+                @else
+                <p>No</p>
+                @endif
+            </td>
+            
             <td>
                 {!! Form::open(['route' => ['nominations.destroy', $nomination->id], 'method' => 'delete']) !!}
                 <div class='btn-group'>
