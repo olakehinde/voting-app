@@ -1,4 +1,4 @@
-<div class="col-md-3">
+<div class="col-md-2">
     <!-- Profile Image -->
     <div class="box box-primary">
         <div class="box-body box-profile">
@@ -27,13 +27,13 @@
 </div>
 <!-- /.col -->
 
-<div class="col-md-9">
+<div class="col-md-10">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
           <li class="active"><a href="#nominate" data-toggle="tab">Nominate</a></li>
-          <li><a href="#vote" data-toggle="tab">Vote</a></li>
+
           @if(Auth::user()->role_id < 3)
-          <li><a href="#nominations" data-toggle="tab">Nominations</a></li>
+          <li><a href="#nominations" data-toggle="tab">Nominees List</a></li>
           @endif
         </ul>
         
@@ -87,15 +87,31 @@
                 @endif
             </div>
             <!-- /.tab-pane -->
-
-            <div class="tab-pane" id="vote">
-            Add Vote content here
-            </div>
-            <!-- /.tab-pane -->
-
             
             <div class="tab-pane" id="nominations">
-            Add noinations content here
+                <!-- list of admin approved nominees -->
+                <h3> Nominees</h3>
+
+                @if(count($selectedNominations) > 0)
+                <div class="box box-primary">
+                    <div class="box-body">
+                            @include('nominations.selected-nominees')
+                    </div>
+                </div>
+                    @else
+                    <p>No Approved Nominee yet</p>
+                @endif
+
+                @if(Auth::user()->role_id < 3)                
+                <!-- list of all nominees -->
+                <h3>All Nominees</h3>
+                <p>This view is only accessible by the Admin</p>
+                <div class="box box-primary">
+                    <div class="box-body">
+                            @include('nominations.table')
+                    </div>
+                </div>
+                @endif
             </div>
             <!-- /.tab-pane -->
         </div>

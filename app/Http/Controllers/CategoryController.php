@@ -35,8 +35,7 @@ class CategoryController extends AppBaseController
         $this->categoryRepository->pushCriteria(new RequestCriteria($request));
         $categories = $this->categoryRepository->all();
 
-        return view('categories.index')
-            ->with('categories', $categories);
+        return view('categories.index')->with('categories', $categories);
     }
 
     /**
@@ -88,17 +87,25 @@ class CategoryController extends AppBaseController
         $hasNominatedBefore = 0;
         $nominationUser = NominationUser::where('user_id', Auth::user()->id)->where('category_id', $id)->first();
 
+        $nominations = Nomination::all();
+        $selectedNominations = Nomination::where('is_admin_selected', 1)->get();
+
         if ($nominationUser) {
             $hasNominatedBefore = 1;
              // get the details of the candidate nominated
             $nominatedCandidate = Nomination::find($nominationUser['nomination_id']);
 
-        return view('categories.show')->with('category', $category)
-                                      ->with('nominatedCandidate', $nominatedCandidate)
-                                      ->with('hasNominatedBefore', $hasNominatedBefore);
+            return view('categories.show')->with('category', $category)
+                                          ->with('nominatedCandidate', $nominatedCandidate)
+                                          ->with('hasNominatedBefore', $hasNominatedBefore)
+                                          ->with('nominations', $nominations)
+                                          ->with('selectedNominations', $selectedNominations);
         }
 
-        return view('categories.show')->with('category', $category);
+
+        return view('categories.show')->with('category', $category)
+                                      ->with('nominations', $nominations)
+                                      ->with('selectedNominations', $selectedNominations);
     }
 
     /**
