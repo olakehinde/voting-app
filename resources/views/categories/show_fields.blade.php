@@ -30,14 +30,21 @@
 <div class="col-md-10">
     <div class="nav-tabs-custom">
         <ul class="nav nav-tabs">
-          <li class="active"><a href="#nominate" data-toggle="tab">Nominate</a></li>
 
-          @if(Auth::user()->role_id < 3)
-          <li><a href="#nominations" data-toggle="tab">Nominees List</a></li>
-          @endif
+            <!-- this view is only accesible to a normal user -->
+            @if(Auth::user()->role_id > 3)
+                <li class="active"><a href="#nominate" data-toggle="tab">Nominate</a></li>
+                <li><a href="#vote" data-toggle="tab">Vote</a></li>
+            @endif
+
+            <!-- this view is only accesible to the admin. only admin can see the list of all nominees -->
+            @if(Auth::user()->role_id < 3)
+                <li class="active"><a href="#nominees" data-toggle="tab">Nominees List</a></li>
+            @endif
         </ul>
         
         <div class="tab-content">
+            @if(Auth::user()->role_id > 3)
             <div class="active tab-pane" id="nominate">
                 <!-- show nomination form if user has not nominated any candidate for this category before -->
                 @if(!isset($hasNominatedBefore) || $hasNominatedBefore === 0)
@@ -51,7 +58,7 @@
                 @else
                     <!-- show the nominated candidate's details if user has nominated before -->
                     <div class="col-md-6 offset-3">
-                        <h4>You have nominated {{ $nominatedCandidate->name }} for {{ $category->name }} category</h4>
+                        <h4>You have nominated {{ $nominatedCandidate->name }} under {{ $category->name }} category</h4>
                         <div class="box box-widget widget-user">
                             <!-- Add the bg color to the header using any of the bg-* classes -->
                             <div class="widget-user-header bg-aqua-active">
@@ -86,19 +93,21 @@
 
                 @endif
             </div>
+            @endif
             <!-- /.tab-pane -->
             
-            <div class="tab-pane" id="nominations">
+            <!-- Nomination tab pane -->
+            <div class="active tab-pane" id="nominees">
                 <!-- list of admin approved nominees -->
                 <h3> Nominees</h3>
 
                 @if(count($selectedNominations) > 0)
-                <div class="box box-primary">
-                    <div class="box-body">
-                            @include('nominations.selected-nominees')
+                    <div class="box box-primary">
+                        <div class="box-body">
+                                @include('nominations.selected-nominees')
+                        </div>
                     </div>
-                </div>
-                    @else
+                @else
                     <p>No Approved Nominee yet</p>
                 @endif
 
@@ -113,7 +122,13 @@
                 </div>
                 @endif
             </div>
-            <!-- /.tab-pane -->
+            <!-- End Nomination tab-pane -->
+
+            <!-- Vote tab-pane content -->
+            <div class="tab-pane" id="vote">
+                Add Vote content here
+            </div>
+            <!-- End vote tab-pane content -->
         </div>
         <!-- /.tab-content -->
     </div>
