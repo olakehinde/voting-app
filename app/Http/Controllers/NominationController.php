@@ -12,6 +12,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use Auth;
 use App\Models\Nomination; 
+use App\Models\Category; 
 use App\Models\NominationUser; 
 
 class NominationController extends AppBaseController
@@ -133,13 +134,15 @@ class NominationController extends AppBaseController
     {
         $nomination = $this->nominationRepository->findWithoutFail($id);
 
+        $categories = Category::all();
+
         if (empty($nomination)) {
             Flash::error('Nomination not found');
 
             return redirect(route('nominations.index'));
         }
 
-        return view('nominations.edit')->with('nomination', $nomination);
+        return view('nominations.edit')->with('nomination', $nomination)->with('categories', $categories);
     }
 
     /**
