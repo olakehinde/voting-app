@@ -20,6 +20,17 @@
     </select>
 </div>
 
+<!-- Category Field -->
+<div class="form-group col-sm-6">
+    <label for="category_id">Category: </label>
+    <select class="form-control" id="category_id" name="category_id">
+        <option value="{{$nomination->category['id']}}">{{$nomination->category['name']}}</option>
+        @foreach($categories as $category)
+        <option value="{{$category['id']}}">{{$category['name']}}</option>
+        @endforeach
+    </select>
+</div>
+
 <!-- Occupation Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('occupation', 'Occupation:') !!}
@@ -32,43 +43,33 @@
     {!! Form::text('reasons_for_nomination', null, ['class' => 'form-control']) !!}
 </div>
 
-<!-- Category Id Field -->
-@if(isset($category->id))
-<div class="form-group col-sm-6">
-    {!! Form::hidden('category_id', $category->id, ['class' => 'form-control']) !!}
-</div>
-@else
-<div class="form-group col-sm-6">
-    {!! Form::hidden('category_id', null, ['class' => 'form-control']) !!}
-</div>
-@endif
 
 
+<!-- only admin/moderator can see this -->
 @if(Auth::user()->role_id < 3)
+    <!-- No Of Nominations Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('no_of_nominations', 'No Of Nominations:') !!}
+        {!! Form::number('no_of_nominations', null, ['class' => 'form-control']) !!}
+    </div>
 
-<!-- No Of Nominations Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('no_of_nominations', 'No Of Nominations:') !!}
-    {!! Form::number('no_of_nominations', null, ['class' => 'form-control']) !!}
-</div>
+    <!-- Is Won Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('is_won', 'Is Won:') !!}
+        <label class="checkbox-inline">
+            {!! Form::hidden('is_won', false) !!}
+            {!! Form::checkbox('is_won', '1', null) !!} 
+        </label>
+    </div>
 
-<!-- Is Won Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('is_won', 'Is Won:') !!}
-    <label class="checkbox-inline">
-        {!! Form::hidden('is_won', false) !!}
-        {!! Form::checkbox('is_won', '1', null) !!} 1
-    </label>
-</div>
-
-<!-- Is Admin Selected Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('is_admin_selected', 'Is Admin Selected:') !!}
-    <label class="checkbox-inline">
-        {!! Form::hidden('is_admin_selected', false) !!}
-        {!! Form::checkbox('is_admin_selected', '1', null) !!} 1
-    </label>
-</div>
+    <!-- Is Admin Selected Field -->
+    <div class="form-group col-sm-6">
+        {!! Form::label('is_admin_selected', 'Is Admin Selected:') !!}
+        <label class="checkbox-inline">
+            {!! Form::hidden('is_admin_selected', false) !!}
+            {!! Form::checkbox('is_admin_selected', '1', null) !!} 
+        </label>
+    </div>
 @endif
 
 <!-- Submit Field -->
