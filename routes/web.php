@@ -55,9 +55,9 @@ Route::middleware(['moderator'])->group(function() {
 	Route::patch('votings/{id}', 'VotingController@update');	
 	Route::delete('votings/{id}', 'VotingController@destroy');
 
-	Route::resource('categories', 'CategoryController');
-	Route::resource('nominations', 'NominationController');
-	Route::resource('votings', 'VotingController');
+	// Route::resource('categories', 'CategoryController');
+	// Route::resource('nominations', 'NominationController');
+	// Route::resource('votings', 'VotingController');
 
 	// only admin can access this routes
 	Route::middleware(['admin'])->group(function() {

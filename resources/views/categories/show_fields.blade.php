@@ -32,19 +32,23 @@
         <ul class="nav nav-tabs">
 
             <!-- this view is only accesible to a normal user -->
-            @if(Auth::user()->role_id > 3)
+            @if(Auth::user()->role_id == 4)
                 <li class="active"><a href="#nominate" data-toggle="tab">Nominate</a></li>
                 <li><a href="#vote" data-toggle="tab">Vote</a></li>
             @endif
 
             <!-- this view is only accesible to the admin. only admin can see the list of all nominees -->
-            @if(Auth::user()->role_id < 3)
-                <li class="active"><a href="#nominees" data-toggle="tab">Nominees List</a></li>
-            @endif
+            
+                <li class="
+                @if(Auth::user()->role_id != 4)
+                    active
+                @endif
+                "><a href="#nominees" data-toggle="tab">Nominees</a></li>
+            
         </ul>
         
         <div class="tab-content">
-            @if(Auth::user()->role_id > 3)
+            @if(Auth::user()->role_id == 4)
             <div class="active tab-pane" id="nominate">
                 <!-- show nomination form if user has not nominated any candidate for this category before -->
                 @if(!isset($hasNominatedBefore) || $hasNominatedBefore === 0)
@@ -96,8 +100,12 @@
             @endif
             <!-- /.tab-pane -->
             
-            <!-- Nomination tab pane -->
-            <div class="active tab-pane" id="nominees">
+            <!-- Nominees tab pane -->
+            <div class="tab-pane 
+            @if(Auth::user()->role_id != 4)
+                active
+            @endif
+            " id="nominees">
                 <!-- list of admin approved nominees -->
                 <h3> Nominees</h3>
 
@@ -113,6 +121,7 @@
 
                 @if(Auth::user()->role_id < 3)                
                 <!-- list of all nominees -->
+                
                 <h3>All Nominees</h3>
                 <p>This view is only accessible by the Admin</p>
                 <div class="box box-primary">
