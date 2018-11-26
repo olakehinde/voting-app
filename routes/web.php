@@ -23,13 +23,7 @@ Route::get('login/facebook', 'Auth\LoginController@redirectToProvider')->name('l
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
 Route::get('register', 'Auth\LoginController@redirectToProvider')->name('register');
 
-// all logged in users can access
-Route::middleware(['auth'])->group(function() {
-	Route::resource('categories', 'CategoryController');
-	Route::resource('nominations', 'NominationController');
-	Route::resource('votings', 'VotingController');
-	Route::resource('users', 'UserController');
-});
+
 
 // only admin and moderators can access this routes
 Route::middleware(['moderator'])->group(function() {
@@ -70,7 +64,14 @@ Route::middleware(['moderator'])->group(function() {
 	});
 });
 
-
+// all logged in users can access
+Route::middleware(['auth'])->group(function() {
+	Route::resource('categories', 'CategoryController');
+	Route::resource('nominations', 'NominationController');
+	Route::resource('votings', 'VotingController');
+	Route::resource('users', 'UserController');
+	Route::get('nominations/vote/{nomination_id}/{category_id}', 'NominationController@vote')->name('nominations.vote');
+});
 
 
 
