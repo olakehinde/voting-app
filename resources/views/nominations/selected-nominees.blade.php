@@ -47,6 +47,8 @@
                            
                             <li><a href="#"><strong>Nominated</strong><span class="pull-right">{{$nomination->created_at->format('M, Y')}}</span></a></li>
                         @endif
+
+                        <li><span class="btn btn-success pull-right" style="color: #FFFFFF; font-weight: bold;">Vote</span></li>
                     </ul>
                 </div>
             </div>
