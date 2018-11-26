@@ -199,6 +199,15 @@ class NominationController extends AppBaseController
     public function vote(Request $request) {
         // create the voting record in the db
         if (Auth::check()) {
+            // check if user has voted before
+            $checkVote = Voting::where('user_id', Auth::user()->id)->where('category_id', $request->category_id)->first();
+
+            if ($checkVote) {
+                Flash::error('Sorry, you have voted before');
+
+                return redirect()->back();
+            }
+            
             $voting = Voting::create([
                 'user_id' => Auth::user()->id,
                 'category_id' => $request->category_id,
