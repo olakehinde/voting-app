@@ -12,6 +12,7 @@ use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use App\Models\NominationUser;
 use App\Models\Nomination;
+use App\Models\Voting;
 use Auth;
 
 class CategoryController extends AppBaseController
@@ -83,12 +84,27 @@ class CategoryController extends AppBaseController
             return redirect(route('categories.index'));
         }
 
-        // check if the logged in viewer has alredy nominated a candidate in this category
-        $hasNominatedBefore = 0;
-        $nominationUser = NominationUser::where('user_id', Auth::user()->id)->where('category_id', $id)->first();
+        
 
         $nominations = Nomination::all();
         $selectedNominations = Nomination::where('is_admin_selected', 1)->get();
+
+        // check if user has voted before
+        $checkVote = Voting::where('user_id', Auth::user()->id)->where('category_id', $category->id)->first();
+
+        if ($checkVote) {
+            Flash::error('Sorry, you have voted before');
+
+            
+            return view('categories.show')->with('category', $category)
+                                          ->with('nominations', $nominations)
+                                          ->with('selectedNominations', $selectedNominations)
+                                          ->with('checkVote', $checkVote);
+        }
+
+        // check if the logged in viewer has alredy nominated a candidate in this category
+        $hasNominatedBefore = 0;
+        $nominationUser = NominationUser::where('user_id', Auth::user()->id)->where('category_id', $id)->first();
 
         if ($nominationUser) {
             $hasNominatedBefore = 1;
@@ -101,11 +117,6 @@ class CategoryController extends AppBaseController
                                           ->with('nominations', $nominations)
                                           ->with('selectedNominations', $selectedNominations);
         }
-
-
-        return view('categories.show')->with('category', $category)
-                                      ->with('nominations', $nominations)
-                                      ->with('selectedNominations', $selectedNominations);
     }
 
     /**
