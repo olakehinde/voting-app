@@ -159,15 +159,16 @@ class NominationController extends AppBaseController
 
         if (empty($nomination)) {
             Flash::error('Nomination not found');
+            
+            return redirect(route('categories.show', ['id' => $id]));
 
-            return redirect(route('nominations.index'));
         }
 
         $nomination = $this->nominationRepository->update($request->all(), $id);
 
         Flash::success('Nomination updated successfully.');
 
-        return redirect(route('nominations.index'));
+        return redirect(route('categories.show', ['id' => $id]));
     }
 
     /**
