@@ -48,7 +48,7 @@
                             <li><a href="#"><strong>Nominated</strong><span class="pull-right">{{$nomination->created_at->format('M, Y')}}</span></a></li>
                         @endif
 
-                        <li><span class="btn btn-success pull-right" style="color: #FFFFFF; font-weight: bold;">Vote</span></li>
+                        <a href="{{route('nominations.vote', ['nomination_id'=>$nomination->id, 'category_id'=>$nomination->category_id])}}"><span class="btn btn-success pull-right" style="color: #FFFFFF; font-weight: bold;">Vote</span></a>
                     </ul>
                 </div>
             </div>
