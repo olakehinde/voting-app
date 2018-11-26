@@ -23,6 +23,7 @@ class CreateNominationsTable extends Migration
             $table->integer('no_of_nominations');
             $table->integer('category_id');
             $table->integer('user_id');
+            $table->integer('no_of_votes')->default(0)->nullable();
             $table->boolean('is_won')->default(0)->nullable();
             $table->boolean('is_admin_selected')->default(0);
             $table->softDeletes();
