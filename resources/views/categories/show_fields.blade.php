@@ -5,7 +5,6 @@
             <!-- this view is only accesible to a normal user -->
             @if(Auth::user()->role_id == 4)
                 <li class="active"><a href="#nominate" data-toggle="tab">Nominate</a></li>
-                <li><a href="#vote" data-toggle="tab">Vote</a></li>
             @endif
 
             <!-- this view is only accesible to the admin. only admin can see the list of all nominees -->
@@ -14,8 +13,13 @@
                 @if(Auth::user()->role_id != 4)
                     active
                 @endif
-                "><a href="#nominees" data-toggle="tab">Nominees</a></li>
-            
+                "><a href="#nominees" data-toggle="tab">
+                @if(Auth::user()->role_id < 3)
+                    Nominees
+                @elseif(Auth::user()->role_id == 4)
+                    Vote
+                @endif
+                </a></li>
         </ul>
         
         <div class="tab-content">
@@ -104,11 +108,6 @@
             </div>
             <!-- End Nomination tab-pane -->
 
-            <!-- Vote tab-pane content -->
-            <div class="tab-pane" id="vote">
-                Add Vote content here
-            </div>
-            <!-- End vote tab-pane content -->
         </div>
         <!-- /.tab-content -->
     </div>
