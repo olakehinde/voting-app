@@ -13,6 +13,7 @@ use Response;
 use Auth;
 use App\Models\Nomination; 
 use App\Models\Category; 
+use App\Models\Voting; 
 use App\Models\NominationUser; 
 
 class NominationController extends AppBaseController
@@ -193,5 +194,30 @@ class NominationController extends AppBaseController
         Flash::success('Nomination deleted successfully.');
 
         return redirect(route('nominations.index'));
+    }
+
+    public function vote(Request $request) {
+        // create the voting record in the db
+        if (Auth::check()) {
+            $voting = Voting::create([
+                'user_id' => Auth::user()->id,
+                'category_id' => $request->category_id,
+                'nomination_id' => $request->nomination_id
+            ]);
+        }
+
+        // get nominations/no of votes from db
+        $getNomination = Nomination::where('id', $request->nomination_id)->first();
+
+        // update vote count by incresing it by 1 in the nomination table
+        $nomination = Nomination::where('id', $request->nomination_id)->update([
+            'no_of_votes' => $getNomination->no_of_votes + 1
+        ]);
+
+        if ($nomination) {
+            Flash::success('Thank you. You have voted Successfully');
+
+            return redirect()->back();
+        }
     }
 }
