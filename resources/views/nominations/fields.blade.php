@@ -20,17 +20,6 @@
     </select>
 </div>
 
-<!-- Category Field -->
-<div class="form-group col-sm-6">
-    <label for="category_id">Category: </label>
-    <select class="form-control" id="category_id" name="category_id">
-        <option value="{{$nomination->category['id']}}">{{$nomination->category['name']}}</option>
-        @foreach($categories as $category)
-        <option value="{{$category['id']}}">{{$category['name']}}</option>
-        @endforeach
-    </select>
-</div>
-
 <!-- Occupation Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('occupation', 'Occupation:') !!}
