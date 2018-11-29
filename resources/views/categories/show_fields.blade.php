@@ -37,7 +37,7 @@
                 @else
                     <!-- show the nominated candidate's details if user has nominated before -->
                     <div class="col-md-6 offset-3">
-                        <h4>You have nominated {{ $nominatedCandidate->name }} under {{ $category->name }} category</h4>
+                        <h4>You have nominated {{ $nominatedCandidate->name }}</h4>
                         <div class="box box-widget widget-user">
                             <!-- Add the bg color to the header using any of the bg-* classes -->
                             <div class="widget-user-header bg-aqua-active">
@@ -62,7 +62,7 @@
                                     <li><a href="#">Projects <span class="pull-right badge bg-blue">31</span></a></li>
                                     <li><a href="#">Tasks <span class="pull-right badge bg-aqua">5</span></a></li>
                                     <li><a href="#">Completed Projects <span class="pull-right badge bg-green">12</span></a></li>
-                                    <li> Joined <span class="pull-right">{{$nominatedCandidate->created_at->format('M, Y') }}</span></li>
+                                    <li> Nominated <span class="pull-right">{{$nominatedCandidate->created_at->format('M, Y') }}</span></li>
                                   </ul>
                                 </div>
                             </div>

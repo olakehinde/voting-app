@@ -89,34 +89,35 @@ class CategoryController extends AppBaseController
         $nominations = Nomination::all();
         $selectedNominations = Nomination::where('is_admin_selected', 1)->get();
 
-        // check if user has voted before
-        $checkVote = Voting::where('user_id', Auth::user()->id)->where('category_id', $category->id)->first();
-
-        if ($checkVote) {
-            Flash::error('Sorry, you have voted before');
-
-            
-            return view('categories.show')->with('category', $category)
-                                          ->with('nominations', $nominations)
-                                          ->with('selectedNominations', $selectedNominations)
-                                          ->with('checkVote', $checkVote);
-        }
+       
 
         // check if the logged in viewer has alredy nominated a candidate in this category
         $hasNominatedBefore = 0;
         $nominationUser = NominationUser::where('user_id', Auth::user()->id)->where('category_id', $id)->first();
+        $nominatedCandidate = 0;
 
         if ($nominationUser) {
             $hasNominatedBefore = 1;
+
              // get the details of the candidate nominated
             $nominatedCandidate = Nomination::find($nominationUser['nomination_id']);
 
-            return view('categories.show')->with('category', $category)
-                                          ->with('nominatedCandidate', $nominatedCandidate)
-                                          ->with('hasNominatedBefore', $hasNominatedBefore)
-                                          ->with('nominations', $nominations)
-                                          ->with('selectedNominations', $selectedNominations);
+            Flash::error('You have already nominated '. $nominatedCandidate->name .' in this Category');
         }
+
+         // check if user has voted before
+        $checkVote = Voting::where('user_id', Auth::user()->id)->where('category_id', $category->id)->first();
+
+        if ($checkVote) {
+            Flash::error('Sorry, you have voted before');
+        }
+
+         return view('categories.show')->with('category', $category)
+                                       ->with('nominatedCandidate', $nominatedCandidate)
+                                       ->with('hasNominatedBefore', $hasNominatedBefore)
+                                       ->with('nominations', $nominations)
+                                       ->with('selectedNominations', $selectedNominations)
+                                       ->with('checkVote', $checkVote);
     }
 
     /**
