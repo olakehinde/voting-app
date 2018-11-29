@@ -28,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = '/categories';
 
     /**
      * Create a new controller instance.
@@ -63,7 +63,7 @@ class LoginController extends Controller
 
         if ($user) {
             if (Auth::loginUsingId($user->id)) {
-                return redirect()->route('home');
+                return redirect()->route('categories.index');
             }
         }
         
@@ -76,7 +76,7 @@ class LoginController extends Controller
 
         if ($userSignUp) {
             if (Auth::loginUsingId($userSignUp->id)) {
-                return redirect()->route('home');
+                return redirect()->route('categories.index');
             }
         }
     }
