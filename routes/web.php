@@ -29,6 +29,7 @@ Route::get('register', 'Auth\LoginController@redirectToProvider')->name('registe
 Route::middleware(['moderator'])->group(function() {
 	// users
 	Route::get('users', 'UserController@index');	
+	Route::get('users/{id}/edit', 'UserController@edit');	
 	Route::delete('users/{id}', 'UserController@destroy');	
 	Route::put('users/{id}', 'UserController@update');	
 	Route::patch('users/{id}', 'UserController@update');	
