@@ -3,7 +3,7 @@
 @section('content')
     <section class="content-header">
         <h1>
-            User
+            User<small><strong> > {{ $user->name }} </strong></small>
         </h1>
    </section>
    <div class="content">
