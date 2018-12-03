@@ -29,6 +29,14 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
+    <!-- Data tables -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
+
+
+    
+
+    
     @yield('css')
 </head>
 
@@ -202,6 +210,14 @@
             forceParse: 0
         });
     </script>
+
+    <!-- script for data tables -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('#example').DataTable();
+        } );
+    </script>
+    
 
     @yield('scripts')
 </body>
