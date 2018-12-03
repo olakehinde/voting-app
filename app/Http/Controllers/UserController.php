@@ -11,6 +11,7 @@ use Flash;
 use Prettus\Repository\Criteria\RequestCriteria;
 use Response;
 use App\Models\Role;
+use App\Models\User;
 
 class UserController extends AppBaseController
 {
@@ -31,7 +32,7 @@ class UserController extends AppBaseController
     public function index(Request $request)
     {
         $this->userRepository->pushCriteria(new RequestCriteria($request));
-        $users = $this->userRepository->all();
+        $users = User::paginate(10);
 
         return view('users.index')
             ->with('users', $users);
