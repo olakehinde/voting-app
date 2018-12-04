@@ -3,27 +3,29 @@
         <ul class="nav nav-tabs">
 
             <!-- this view is only accesible to a normal user -->
-            @if(Auth::user()->role_id == 4)
+            @if(Auth::user()->role_id == 4 && $isWithinNominationPeriod == 'YES')
                 <li class="active"><a href="#nominate" data-toggle="tab">Nominate</a></li>
             @endif
 
             <!-- this view is only accesible to the admin. only admin can see the list of all nominees -->
-            
-                <li class="
-                @if(Auth::user()->role_id != 4)
-                    active
+                
+                @if(Auth::user()->role_id < 3 || $isWithinVotingPeriod == 'YES')
+                    <li class="
+                    @if(Auth::user()->role_id != 4)
+                        active
+                    @endif
+                    "><a href="#nominees" data-toggle="tab">
+                    @if(Auth::user()->role_id < 3)
+                        Nominees
+                    @elseif(Auth::user()->role_id == 4)
+                        Vote
+                    @endif
+                    </a></li>
                 @endif
-                "><a href="#nominees" data-toggle="tab">
-                @if(Auth::user()->role_id < 3)
-                    Nominees
-                @elseif(Auth::user()->role_id == 4)
-                    Vote
-                @endif
-                </a></li>
         </ul>
         
         <div class="tab-content">
-            @if(Auth::user()->role_id == 4)
+            @if(Auth::user()->role_id == 4 && $isWithinNominationPeriod == 'YES')
             <div class="active tab-pane" id="nominate">
                 <!-- show nomination form if user has not nominated any candidate for this category before -->
                 @if(!isset($hasNominatedBefore) || $hasNominatedBefore === 0)
@@ -75,12 +77,14 @@
             @endif
             <!-- /.tab-pane -->
             
-            <!-- Nominees tab pane -->
+            <!-- Nominees tab pane. Only admin can access this at all times. Voters can only access during voting period -->
+            @if(Auth::user()->role_id < 3 || $isWithinVotingPeriod == 'YES')
             <div class="tab-pane 
-            @if(Auth::user()->role_id != 4)
-                active
-            @endif
-            " id="nominees">
+                @if(Auth::user()->role_id != 4 || $isWithinVotingPeriod == 'YES')
+                    active
+                @endif
+                " id="nominees">
+
                 <!-- list of admin approved nominees -->
                 <h3> Nominees</h3>
 
@@ -106,6 +110,7 @@
                 </div>
                 @endif
             </div>
+            @endif
             <!-- End Nomination tab-pane -->
 
         </div>
