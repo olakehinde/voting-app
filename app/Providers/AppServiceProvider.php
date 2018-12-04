@@ -22,6 +22,8 @@ class AppServiceProvider extends ServiceProvider
         $currentTime = Carbon::now();
         
         $setting = Setting::find(1);
+        
+        View::share('getViewSetting', $setting);
 
         if ($currentTime->gt($setting->nomination_start_date) && $currentTime->lt($setting->nomination_end_date) ) {
             // returns true if current time is within the nomination period
