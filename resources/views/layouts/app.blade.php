@@ -48,7 +48,16 @@
 
             <!-- Logo -->
             <a href="#" class="logo">
-                <b>VotingApp</b>
+                <b>
+                    @if($isWithinNominationPeriod == 'YES')
+                        Nomination
+                    @elseif($isWithinVotingPeriod == 'YES')
+                        Voting
+                    @else
+                        Voting and Nomination
+                    @endif
+                    App
+                </b>
             </a>
 
             <!-- Header Navbar -->
