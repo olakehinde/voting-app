@@ -66,9 +66,20 @@
                 <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                     <span class="sr-only">Toggle navigation</span>
                 </a>
+
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
                     <ul class="nav navbar-nav">
+                        <li>
+                            <a href="/settings">
+                                <b>Nomination period: </b> {{ $getViewSetting->nomination_start_date->format('D M, d') }} - {{ $getViewSetting->nomination_end_date->format('D M, d') }}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/settings">
+                                <b>Voting period: </b> {{ $getViewSetting->voting_start_date->format('D M, d') }} - {{ $getViewSetting->voting_end_date->format('D M, d') }}
+                            </a>
+                        </li>
                         <!-- User Account Menu -->
                         <li class="dropdown user user-menu">
                             <!-- Menu Toggle Button -->
