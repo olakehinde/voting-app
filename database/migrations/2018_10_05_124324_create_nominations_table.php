@@ -20,6 +20,7 @@ class CreateNominationsTable extends Migration
             $table->string('gender');
             $table->string('occupation')->nullable();
             $table->string('reasons_for_nomination')->nullable();
+            $table->string('image')->nullable();
             $table->integer('no_of_nominations');
             $table->integer('category_id');
             $table->integer('user_id');
