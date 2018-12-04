@@ -19,6 +19,6 @@ class Admin
         if (Auth::check() && Auth::user()->role_id == 1) {
             return $next($request);
         }
-        return redirect('home');
+        return redirect('categories');
     }
 }

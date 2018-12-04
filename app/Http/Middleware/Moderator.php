@@ -19,6 +19,6 @@ class Moderator
         if (Auth::check() && Auth::user()->role_id < 3) {
             return $next($request);
         }
-        return redirect('home');
+        return redirect('categories');
     }
 }
