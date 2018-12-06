@@ -61,6 +61,11 @@ class NominationController extends AppBaseController
     public function store(CreateNominationRequest $request)
     {
         $input = $request->all();
+
+        $this->validate($request, [
+            'image' => 'image|mimes:jpeg,png,gif,svg,jpg|max:5048',
+        ]);
+
         $input['user_id'] = Auth::user()->id;
 
         // check db if nomination already exists
@@ -90,8 +95,23 @@ class NominationController extends AppBaseController
         }
         else {
             $input['no_of_nominations']  = 1;
-            $nomination = $this->nominationRepository->create($input);
-                
+
+            // get the uploaded image file
+            $image = $request->file('image');
+// dd($image);
+            // get image name from the uploaded image file
+            $input['imagename'] = $image->getClientOriginalName();
+            // dd($input['imagename']);
+            // create nomination
+            $nomination = Nomination::create($input);
+
+            if ($nomination) {
+                // file upload directory
+                $uploadPath = public_path('/storage/uploads/images/'. $nomination->id.'/');
+
+                $image->move($uploadPath, $input['imagename']);
+            }
+
             NominationUser::create([
                 'user_id' => Auth::user()->id,
                 'category_id' => $request->input('category_id'),

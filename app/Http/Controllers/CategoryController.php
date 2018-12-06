@@ -13,6 +13,7 @@ use Response;
 use App\Models\NominationUser;
 use App\Models\Nomination;
 use App\Models\Voting;
+use App\Models\Category;
 use Auth;
 
 class CategoryController extends AppBaseController
@@ -60,7 +61,28 @@ class CategoryController extends AppBaseController
     {
         $input = $request->all();
 
-        $category = $this->categoryRepository->create($input);
+        $this->validate($request, [
+            'image' => 'image|mimes:jpeg,png,gif,svg,jpg|max:5048',
+        ]);
+
+        $image = $request->file('image');
+
+        // get image name
+        $input['imagename'] = $image->getClientOriginalName();
+
+        
+        $data = $request->all();
+        $data['image'] = $input['imagename'];
+        $data['user_id'] = Auth::user()->id;
+
+        $categoryFileUpload = Category::create($data);
+
+        if ($categoryFileUpload) {
+           // file upload directory
+            $uploadPath = public_path('/storage/uploads/images/'. $categoryFileUpload->id. '/');
+
+            $image->move($uploadPath, $input['imagename']);
+        }
 
         Flash::success('Category saved successfully.');
 
