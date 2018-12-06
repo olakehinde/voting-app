@@ -22,6 +22,7 @@ class NominationRepository extends BaseRepository
     protected $fieldSearchable = [
         'name',
         'bio',
+        'image',
         'gender',
         'occupation',
         'reasons_for_nomination',
