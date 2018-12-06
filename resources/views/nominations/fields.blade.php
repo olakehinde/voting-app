@@ -4,6 +4,10 @@
     {!! Form::text('name', null, ['class' => 'form-control']) !!}
 </div>
 
+<!-- Hidden category id Field -->
+{!! Form::hidden('category_id', $category->id, ['class' => 'form-control']) !!}
+
+
 <!-- Bio Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('bio', 'Bio:') !!}
@@ -60,6 +64,12 @@
         </label>
     </div>
 @endif
+
+<!-- Image upload Field -->
+<div class="form-group col-sm-6">
+    {!! Form::label('image', 'Upload Image of Nominee (optional):') !!}
+    {!! Form::file('image', null, ['class' => 'form-control']) !!}
+</div>
 
 <!-- Submit Field -->
 <div class="form-group col-sm-12">
