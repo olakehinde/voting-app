@@ -17,6 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('/login', function(){
+	return view('election-home');
+});
+
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider')->name('login.facebook');
