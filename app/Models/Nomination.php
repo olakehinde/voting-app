@@ -37,6 +37,7 @@ class Nomination extends Model
     public $fillable = [
         'name',
         'bio',
+        'image',
         'gender',
         'occupation',
         'reasons_for_nomination',
@@ -56,6 +57,7 @@ class Nomination extends Model
         'id' => 'integer',
         'name' => 'string',
         'bio' => 'string',
+        'image' => 'string',
         'gender' => 'string',
         'occupation' => 'string',
         'reasons_for_nomination' => 'string',
