@@ -98,18 +98,19 @@ class NominationController extends AppBaseController
 
             // get the uploaded image file
             $image = $request->file('image');
-// dd($image);
+
             // get image name from the uploaded image file
-            $input['imagename'] = $image->getClientOriginalName();
-            // dd($input['imagename']);
+            $input['image'] = $image->getClientOriginalName();
+
             // create nomination
             $nomination = Nomination::create($input);
+
 
             if ($nomination) {
                 // file upload directory
                 $uploadPath = public_path('/storage/uploads/images/'. $nomination->id.'/');
 
-                $image->move($uploadPath, $input['imagename']);
+                $image->move($uploadPath, $input['image']);
             }
 
             NominationUser::create([
