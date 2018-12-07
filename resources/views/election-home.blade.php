@@ -4,6 +4,11 @@
     <!-- banner -->
     <div class="banner">
         <div class="container">
+            <!-- facebook login button -->
+            <div class="text-center" style="margin-top: 10%">
+                <a href="login/facebook" class="btn btn-primary btn-facebook btn-flat"><i class="fa fa-facebook"></i>Login with Facebook</a>
+            </div>
+
             <section class="slider">
                 <div class="flexslider">
                     <ul class="slides">
@@ -41,20 +46,6 @@
                 </div>
             </section>
         </div>
-
-        <!-- FlexSlider -->
-        <script defer src="js/jquery.flexslider.js"></script>
-        <script type="text/javascript">
-            $(window).load(function(){
-              $('.flexslider').flexslider({
-                animation: "slide",
-                start: function(slider){
-                  $('body').removeClass('loading');
-                }
-              });
-            });
-        </script>
-        <!-- //FlexSlider -->
     </div>
     <!-- //Banner -->
 @endsection
