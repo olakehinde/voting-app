@@ -37,6 +37,10 @@ class CategoryController extends AppBaseController
         $this->categoryRepository->pushCriteria(new RequestCriteria($request));
         $categories = $this->categoryRepository->all();
 
+        if (Auth::user()->role_id == 4) {
+            return view('categories.election-index')->with('categories', $categories);
+        }
+        
         return view('categories.index')->with('categories', $categories);
     }
 
