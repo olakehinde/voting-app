@@ -19,7 +19,7 @@ Auth::routes();
 
 Route::get('/login', function(){
 	return view('election-home');
-});
+})->name('login');
 
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
