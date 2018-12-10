@@ -1,6 +1,9 @@
 @extends('layouts.election-template')
 
 @section('content')
+    <div class="text-center" style="margin-top: 50px; margin-bottom: 50px">
+        <h1>Choose a Category</h1>
+    </div>
     <!-- banner-bottom1 -->
     <div class="banner-bottom1">
         <div class="banner-bottom1-grids">
