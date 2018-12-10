@@ -1,20 +1,25 @@
 @extends('layouts.election-template')
 
 @section('content')
+    <div class="text-center" style="margin-top: 50px;">
+        <h1>Vote a Candidate</h1>
+    </div>
     <!-- banner-bottom -->
     <div class="banner-bottom">
         <div class="container">
             <article> 
                 <div class="banner-wrap">
                     <div class="about-grids">
+                        @foreach($nominations as $nomination)
                         <div class="col-md-4 about-grid">
+                            <br>
                             <div class="about-grid1">
                                 <figure class="thumb">
-                                    <img src="{{ asset('election-template/images/p1.jpg') }}" alt=" " class="img-responsive" />
+                                    <img style="max-height: 250px; min-height: 250px" src="{{ asset('storage/uploads/images/'.$nomination->id.'/'.$nomination->image) }}" alt="$nomination->name" class="img-responsive" />
                                     <figcaption class="caption">
-                                        <h3><a href="#">James Cameron</a></h3>
-                                        <span>Manager.</span>
-                                        <p> It was popularised in the 1960s with the release of Letraset sheets.</p>
+                                        <h3><a href="#">{{ $nomination->name }}</a></h3>
+                                        <span>{{ $nomination->occupation }}</span>
+                                        <p>{{ $nomination->bio }}</p>
                                         <ul>
                                             <li><a href="#" class="f1"></a></li>
                                             <li><a href="#" class="f2"></a></li>
@@ -24,6 +29,8 @@
                                 </figure>
                             </div>
                         </div>
+                        @endforeach
+
                         <div class="col-md-4 about-grid">
                             <div class="about-grid1">
                                 <figure class="thumb">
