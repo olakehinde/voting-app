@@ -40,7 +40,7 @@ class CategoryController extends AppBaseController
         if (Auth::user()->role_id == 4) {
             return view('categories.election-index')->with('categories', $categories);
         }
-        
+
         return view('categories.index')->with('categories', $categories);
     }
 
@@ -107,6 +107,10 @@ class CategoryController extends AppBaseController
         if (empty($category)) {
             Flash::error('Category not found');
 
+            if (Auth::user()->role_id == 4) {
+                return view('categories.election-index')->with('categories', $categories);
+            }
+
             return redirect(route('categories.index'));
         }
 
@@ -136,6 +140,17 @@ class CategoryController extends AppBaseController
 
         if ($checkVote) {
             Flash::error('Sorry, you have voted before');
+        }
+
+        // check if logged-in user is a voter and display a different view
+        if (Auth::user()->role_id == 4) {
+            
+            return view('categories.election-show')->with('category', $category)
+                                       ->with('nominatedCandidate', $nominatedCandidate)
+                                       ->with('hasNominatedBefore', $hasNominatedBefore)
+                                       ->with('nominations', $nominations)
+                                       ->with('selectedNominations', $selectedNominations)
+                                       ->with('checkVote', $checkVote);
         }
 
          return view('categories.show')->with('category', $category)
