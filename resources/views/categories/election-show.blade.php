@@ -20,11 +20,10 @@
                                         <h3><a href="#">{{ $nomination->name }}</a></h3>
                                         <span>{{ $nomination->occupation }}</span>
                                         <p>{{ $nomination->bio }}</p>
-                                        <ul>
-                                            <li><a href="#" class="f1"></a></li>
-                                            <li><a href="#" class="f2"></a></li>
-                                            <li><a href="#" class="f3"></a></li>
-                                        </ul>
+
+                                        <!-- add a vote button -->
+                                        <a href="{{route('nominations.vote', ['nomination_id'=>$nomination->id, 'category_id'=>$nomination->category_id])}}" class="btn btn-success btn-block">Vote</a>
+
                                     </figcaption>
                                 </figure>
                             </div>
