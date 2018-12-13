@@ -1,8 +1,30 @@
 @extends('layouts.election-template')
 
 @section('content')
-    @if($isWithinNominationPeriod == 'YES')
-        VBKBKVNK
+{{$isWithinNominationPeriod. ' , '. $isWithinVotingPeriod}}
+    @if($isWithinNominationPeriod == 'NO')
+        <!-- contact -->
+        <div class="contact">
+            <div class="container col-md-offset-3">
+                <h3>Nominate a Candidate</h3>
+                <p class="nihil">Nominate a Tested, Trusted & Credible Candidate.</p>
+                <div class="contact-grid">
+                    <div class="col-md-7 contact-right">
+                        <form>
+                            <input type="text" placeholder="Name" required=" ">
+                            <input type="text" placeholder="Email Address" required=" ">
+                            <input type="text" placeholder="Phone Number" required=" ">
+                            <input type="text" placeholder="Subject" required=" ">
+                            <div class="clearfix"> </div>
+                            <textarea placeholder="Type Your Text Here...." required=" "></textarea>
+                            <input type="submit" value="Submit">
+                            <input type="reset" value="Clear">
+                        </form>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
     @elseif($isWithinVotingPeriod == 'YES')
         <div class="text-center" style="margin-top: 50px;">
             <h1>Vote a Candidate</h1>
