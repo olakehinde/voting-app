@@ -57,9 +57,10 @@
                     <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
                             <li class="act"><a href="/">Home</a></li>
+                            <li class="act"><a href="/categories">Category</a></li>
                             <li class="pull-right act"><a href="#">{{Auth::user()->name}}</a></li>
                         </ul>
-                        <div class="pull-right" style="margin-top: 30px">
+                        <div class="pull-right" style="margin-top: 25px">
                             <a href="{!! url('/logout') !!}" class="btn btn-default btn-flat"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                                 Sign out
@@ -81,11 +82,13 @@
     </div>
     <!-- //end-header -->
 
-    <div class="text-center">
-        <strong>Nomination period: </strong> {{ $getViewSetting->nomination_start_date->format('D M, d') }} - {{ $getViewSetting->nomination_end_date->format('D M, d') }}
-        &nbsp; 
-        <strong>Voting period: </strong> {{ $getViewSetting->voting_start_date->format('D M, d') }} - {{ $getViewSetting->voting_end_date->format('D M, d') }}
+    @if(!Auth::guest())
+    <div class="text-center well">
+        <strong><span class="glyphicon glyphicon-time" style="font-size: 13px" aria-hidden="true"></span> Nomination period: </strong> {{ $getViewSetting->nomination_start_date->format('D M, d') }} - {{ $getViewSetting->nomination_end_date->format('D M, d') }}
+        &nbsp; || &nbsp;
+        <strong><span class="glyphicon glyphicon-bell" style="font-size: 13px" aria-hidden="true"></span> Voting period: </strong> {{ $getViewSetting->voting_start_date->format('D M, d') }} - {{ $getViewSetting->voting_end_date->format('D M, d') }}
     </div>
+    @endif
 
     @yield('content')
 

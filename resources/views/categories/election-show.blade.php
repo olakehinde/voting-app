@@ -5,7 +5,9 @@
         @if(isset($hasNominatedBefore) && $hasNominatedBefore != 0)
             <div class="banner-bottom">
                 <div class="container col-md-offset-3">
-                    <h3>You have Nominated <strong>{{ $nominatedCandidate->name }}</strong></h3>
+                    <h3><span class="glyphicon glyphicon-th-list" style="color: grey; font-size: 20px" aria-hidden="true"></span>
+                        You have Nominated <strong>{{ $nominatedCandidate->name }}</strong>
+                    </h3>
                     <p class="nihil">Under the <strong>{{ $category->name }}</strong> Category</p>
                     <article> 
                         <div class="banner-wrap">
@@ -35,7 +37,10 @@
         <!-- Nomintion form -->
         <div class="contact">
             <div class="container col-md-offset-3">
-                <h3>Nominate a Candidate in the {{$category->name }} Category</h3>
+                <h3>
+                    <span class="glyphicon glyphicon-user" style="color: grey; font-size: 30px" aria-hidden="true"></span> 
+                        Nominate a Candidate in the {{$category->name }} Category
+                </h3>
                 <p class="nihil">Nominate a Tested, Trusted & Credible Candidate.</p>
                 <div class="contact-grid">
                     @include('adminlte-templates::common.errors')
@@ -76,7 +81,10 @@
     @elseif($isWithinVotingPeriod == 'YES')
         @if(isset($selectedNominations))
         <div class="text-center" style="margin-top: 50px;">
-            <h1>Vote a Candidate</h1>
+            <h1>
+                <span class="glyphicon glyphicon-thumbs-up" style="color: grey; font-size: 30px" aria-hidden="true"></span>
+                 Vote a Candidate
+            </h1>
             @if(isset($checkVote))
             <small>You have Voted in this Category</small>
             @endif
