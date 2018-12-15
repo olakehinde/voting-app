@@ -75,6 +75,7 @@
         </div>
         @endif
     @elseif($isWithinVotingPeriod == 'YES')
+        @if(isset($selectedNominations))
         <div class="text-center" style="margin-top: 50px;">
             <h1>Vote a Candidate</h1>
             @if(isset($checkVote))
@@ -88,7 +89,7 @@
                     <div class="banner-wrap">
                         <div class="about-grids">
 
-                            @foreach($nominations as $nomination)
+                            @foreach($selectedNominations as $nomination)
                             <div class="col-md-4 about-grid">
                                 <br>
                                 <div class="about-grid1">
@@ -116,6 +117,16 @@
                 </article>
             </div>
         </div>
+        @endif
         <!-- //banner-bottom -->
     @endif
+    <div class="text-center">
+        @if(isset($previousCategory))
+            <a href="#"><< Previous Category {{$previousCategory->name}}</a>
+        @endif
+        ||
+        @if(isset($nextCategory))
+            <a href="#">Next Category >> {{$nextCategory->name}}</a>
+        @endif
+    </div>
 @endsection
