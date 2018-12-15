@@ -1,30 +1,79 @@
 @extends('layouts.election-template')
 
 @section('content')
-{{$isWithinNominationPeriod. ' , '. $isWithinVotingPeriod}}
-    @if($isWithinNominationPeriod == 'NO')
-        <!-- contact -->
+    @if($isWithinNominationPeriod == 'NO') //remember to change the check back to 'NO'
+        @if(isset($hasNominatedBefore) && $hasNominatedBefore != 0)
+            <div class="banner-bottom">
+                <div class="container col-md-offset-3">
+                    <h3>You have Nominated <strong>{{ $nominatedCandidate->name }}</strong></h3>
+                    <p class="nihil">Under the <strong>{{ $category->name }}</strong> Category</p>
+                    <article> 
+                        <div class="banner-wrap">
+                            <div class="about-grids">
+                                <div class="col-md-4 about-grid">
+                                    <br>
+                                    <div class="about-grid1">
+                                        <figure class="thumb">
+                                            <img style="max-height: 250px; min-height: 250px" src="{{ asset('storage/uploads/images/'.$nominatedCandidate->id.'/'.$nominatedCandidate->image) }}" alt="$nominatedCandidate->name" class="img-responsive" />
+                                            <figcaption class="caption">
+                                                <h3><a href="#">{{ $nominatedCandidate->name }}</a></h3>
+                                                <span>{{ $nominatedCandidate->occupation }}</span>
+                                                <p>{{ $nominatedCandidate->bio }}</p>
+                                            </figcaption>
+                                        </figure>
+                                    </div>
+                                </div>
+                                <div class="clearfix"> </div>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        @endif
+
+        @if(!isset($hasNominatedBefore) || $hasNominatedBefore === 0)
+        <!-- Nomintion form -->
         <div class="contact">
             <div class="container col-md-offset-3">
                 <h3>Nominate a Candidate</h3>
                 <p class="nihil">Nominate a Tested, Trusted & Credible Candidate.</p>
                 <div class="contact-grid">
+                    @include('adminlte-templates::common.errors')
+                    @include('adminlte-templates::common.success')
                     <div class="col-md-7 contact-right">
-                        <form>
-                            <input type="text" placeholder="Name" required=" ">
-                            <input type="text" placeholder="Email Address" required=" ">
-                            <input type="text" placeholder="Phone Number" required=" ">
-                            <input type="text" placeholder="Subject" required=" ">
-                            <div class="clearfix"> </div>
-                            <textarea placeholder="Type Your Text Here...." required=" "></textarea>
-                            <input type="submit" value="Submit">
-                            <input type="reset" value="Clear">
+                        <form method="post" action="{{route('nominations.store')}}" enctype="multipart/form-data">
+                            <input type="text" name="name" placeholder="Enter Fullname (Surname first)" required="">
+                            <input type="text" name="occupation" placeholder="Occupation">
+                            <input type="text" name="reasons_for_nomination" placeholder="Why do you Nominate Candidate?">
+                            <textarea name="bio" placeholder="Enter Candidate Biography here..."></textarea>
+
+                            <div class="form-group col-sm-6" style="margin-top: 10px;">
+                                <!-- Gender Field -->
+                                <label for="gender">Gender</label>
+                                <select id="gender" name="gender">
+                                    <option value="" selected="selected">Select</option>
+                                    <option value="Male">Male</option>
+                                    <option value="Female">Female</option>
+                                </select>
+                            </div>
+
+                            <div class="col-sm-6 form-group" style="margin-top: 10px;">
+                                <label for="image">Upload Candidate Image</label>
+                                <input type="file" name="image" id="image" required="">
+                            </div>
+                            
+                            <!-- hidden field -->
+                            <input type="hidden" name="category_id" value="{{$category->id}}">
+                            {{ csrf_field() }}
+
+                            <input class="col-sm-offset-3" type="submit" value="Submit">
                         </form>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
             </div>
         </div>
+        @endif
     @elseif($isWithinVotingPeriod == 'YES')
         <div class="text-center" style="margin-top: 50px;">
             <h1>Vote a Candidate</h1>
