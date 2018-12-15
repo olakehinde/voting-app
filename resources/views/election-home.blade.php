@@ -6,7 +6,7 @@
         <div class="container">
             <!-- facebook login button -->
             <div class="text-center" style="margin-top: 10%">
-                <a href="login/facebook" class="btn btn-primary btn-facebook btn-flat"><i class="fa fa-facebook"></i>Login with Facebook</a>
+                <a href="login/facebook" class="btn btn-primary btn-facebook btn-flat"><i class="fa fa-facebook"></i> Login with Facebook</a>
             </div>
 
             <section class="slider">

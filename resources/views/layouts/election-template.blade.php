@@ -18,6 +18,9 @@
     <!-- //for-mobile-apps -->
     <link href="{{asset('election-template/css/bootstrap.css')}}" rel="stylesheet" media="screen">
     
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <link href='//fonts.googleapis.com/css?family=Raleway:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
 
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
@@ -56,13 +59,14 @@
                     @if(!Auth::guest())
                     <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
                         <ul class="nav navbar-nav">
-                            <li class="act"><a href="/">Home</a></li>
-                            <li class="act"><a href="/categories">Category</a></li>
-                            <li class="pull-right act"><a href="#">{{Auth::user()->name}}</a></li>
+                            <li class="act"><a href="/"><span class="glyphicon glyphicon-home" style="font-size: 15px" aria-hidden="true"></span> Home</a></li>
+                            <li class="act"><a href="/categories"><span class="glyphicon glyphicon-th-list" style="font-size: 15px" aria-hidden="true"></span> Category</a></li>
+                            <li class="pull-right act"><a href="#"><span class="glyphicon glyphicon-user" style="font-size: 15px" aria-hidden="true"></span> {{Auth::user()->name}}</a></li>
                         </ul>
                         <div class="pull-right" style="margin-top: 25px">
-                            <a href="{!! url('/logout') !!}" class="btn btn-default btn-flat"
+                            <a href="{!! url('/logout') !!}" class="btn btn-danger btn-flat"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                <span class="glyphicon glyphicon-off" style="font-size: 15px" aria-hidden="true"></span>
                                 Sign out
                             </a>
                             <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
@@ -72,7 +76,7 @@
                     </div><!-- /.navbar-collapse -->
                     @else
                     <ul class="nav navbar-nav">
-                            <li class="act"><a href="/">Home</a></li>
+                            <li class="act"><a href="/"><span class="glyphicon glyphicon-home" style="font-size: 15px" aria-hidden="true"></span> Home</a></li>
                         </ul>
                     @endif    
                     
