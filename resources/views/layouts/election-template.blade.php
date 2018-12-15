@@ -33,7 +33,60 @@
 </head>
 
 <body>
-    
+    <!-- header -->
+    <div class="header_bg">
+        <div class="container">
+            <!-----start-header----->
+            <div class="header">
+                <div class="logo">
+                    <a href="index.html"><img src="images/logo1.png" alt=" " /></a>
+                </div>
+                <nav class="navbar navbar-default">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                      </button>
+                    </div>
+
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    @if(!Auth::guest())
+                    <div class="collapse navbar-collapse nav-wil" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav">
+                            <li class="act"><a href="/">Home</a></li>
+                            <li class="pull-right act"><a href="#">{{Auth::user()->name}}</a></li>
+                        </ul>
+                        <div class="pull-right" style="margin-top: 30px">
+                            <a href="{!! url('/logout') !!}" class="btn btn-default btn-flat"
+                                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                Sign out
+                            </a>
+                            <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                                {{ csrf_field() }}
+                            </form>
+                        </div>
+                    </div><!-- /.navbar-collapse -->
+                    @else
+                    <ul class="nav navbar-nav">
+                            <li class="act"><a href="/">Home</a></li>
+                        </ul>
+                    @endif    
+                    
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- //end-header -->
+
+    <div class="text-center">
+        <strong>Nomination period: </strong> {{ $getViewSetting->nomination_start_date->format('D M, d') }} - {{ $getViewSetting->nomination_end_date->format('D M, d') }}
+        &nbsp; 
+        <strong>Voting period: </strong> {{ $getViewSetting->voting_start_date->format('D M, d') }} - {{ $getViewSetting->voting_end_date->format('D M, d') }}
+    </div>
+
     @yield('content')
 
     <!-- scroll_top_btn -->
