@@ -35,11 +35,10 @@
         <!-- Nomintion form -->
         <div class="contact">
             <div class="container col-md-offset-3">
-                <h3>Nominate a Candidate</h3>
+                <h3>Nominate a Candidate in the {{$category->name }} Category</h3>
                 <p class="nihil">Nominate a Tested, Trusted & Credible Candidate.</p>
                 <div class="contact-grid">
                     @include('adminlte-templates::common.errors')
-                    @include('adminlte-templates::common.success')
                     <div class="col-md-7 contact-right">
                         <form method="post" action="{{route('nominations.store')}}" enctype="multipart/form-data">
                             <input type="text" name="name" placeholder="Enter Fullname (Surname first)" required="">
@@ -122,11 +121,15 @@
     @endif
     <div class="text-center">
         @if(isset($previousCategory))
-            <a href="#"><< Previous Category {{$previousCategory->name}}</a>
+            <a href="/categories/{{$previousCategory->id}}" class="col-xm-5"><< Previous Category <span class="btn btn-primary">{{$previousCategory->name}}</span></a>
         @endif
-        ||
+
+        @if(isset($previousCategory) && isset($nextCategory))
+            &nbsp; &nbsp; &nbsp;||&nbsp;&nbsp;&nbsp;
+        @endif
+
         @if(isset($nextCategory))
-            <a href="#">Next Category >> {{$nextCategory->name}}</a>
+            <a href="/categories/{{$nextCategory->id}}" class="col-xm-5">Next Category >> <span class="btn btn-primary">{{$nextCategory->name}}</span></a>
         @endif
     </div>
 @endsection
