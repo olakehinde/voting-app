@@ -103,6 +103,8 @@ class CategoryController extends AppBaseController
     public function show($id)
     {
         $category = $this->categoryRepository->findWithoutFail($id);
+        $nextCategory = Category::where('id', '>', $category->id)->first();
+        $previousCategory = Category::where('id', '<', $category->id)->first();
 
         if (empty($category)) {
             Flash::error('Category not found');
@@ -150,16 +152,20 @@ class CategoryController extends AppBaseController
                                        ->with('hasNominatedBefore', $hasNominatedBefore)
                                        ->with('nominations', $nominations)
                                        ->with('selectedNominations', $selectedNominations)
-                                       ->with('checkVote', $checkVote);
-        }
+                                       ->with('checkVote', $checkVote)
+                                       ->with('nextCategory', $nextCategory)
+                                       ->with('previousCategory', $previousCategory);
+            }
 
-         return view('categories.show')->with('category', $category)
-                                       ->with('nominatedCandidate', $nominatedCandidate)
-                                       ->with('hasNominatedBefore', $hasNominatedBefore)
-                                       ->with('nominations', $nominations)
-                                       ->with('selectedNominations', $selectedNominations)
-                                       ->with('checkVote', $checkVote);
-    }
+        return view('categories.show')->with('category', $category)
+                                      ->with('nominatedCandidate', $nominatedCandidate)
+                                      ->with('hasNominatedBefore', $hasNominatedBefore)
+                                      ->with('nominations', $nominations)
+                                      ->with('selectedNominations', $selectedNominations)
+                                      ->with('checkVote', $checkVote)
+                                      ->with('nextCategory', $nextCategory)
+                                      ->with('previousCategory', $previousCategory);
+        }
 
     /**
      * Show the form for editing the specified Category.
