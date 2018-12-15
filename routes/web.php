@@ -21,7 +21,7 @@ Route::get('/login', function(){
 	return view('election-home');
 })->name('login');
 
-Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
+Route::get('/home', 'CategoryController@index')->name('home')->middleware('auth');
 
 Route::get('login/facebook', 'Auth\LoginController@redirectToProvider')->name('login.facebook');
 Route::get('login/facebook/callback', 'Auth\LoginController@handleProviderCallback');
