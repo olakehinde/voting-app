@@ -4,12 +4,12 @@
         <div class="box box-widget widget-user">
             <!-- Add the bg color to the header using any of the bg-* classes -->
             <div class="widget-user-header bg-aqua-active">
-              <h3 class="widget-user-nominationname">{{$nomination->name}} <strong class="pull-right">({{$nomination->no_of_votes}} votes)</strong></h3>
+              <h3 class="widget-user-nominationname">{{$nomination->name}} <small class="pull-right" style="color: #FFFFFF">({{$nomination->no_of_votes}} votes)</small></h3>
               <h5 class="widget-user-desc">{{$nomination->email}}</h5>
             </div>
 
             <div class="widget-user-image">
-              <img class="img-circle" src="{{$nomination->avatar}}" alt="{{$nomination->name}}">
+              <img class="img-circle" src="{{ asset('storage/uploads/images/'. $nomination->id. '/'. $nomination->image) }}" alt="{{$nomination->name}}">
             </div>
 
             <div class="box-footer">
