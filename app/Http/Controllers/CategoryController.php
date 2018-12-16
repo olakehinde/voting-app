@@ -103,8 +103,8 @@ class CategoryController extends AppBaseController
     public function show($id)
     {
         $category = $this->categoryRepository->findWithoutFail($id);
-        $nextCategory = Category::where('id', '>', $category->id)->first();
-        $previousCategory = Category::where('id', '<', $category->id)->first();
+        $nextCategory = Category::where('id', '>', $id)->first();
+        $previousCategory = Category::where('id', '<', $id)->first();
 
         if (empty($category)) {
             Flash::error('Category not found');
@@ -123,20 +123,23 @@ class CategoryController extends AppBaseController
 
        
 
-        // check if the logged in viewer has alredy nominated a candidate in this category
-        $hasNominatedBefore = 0;
+        // check if the logged in viewer has already nominated a candidate in this category except admin
+        $hasNominatedBefore = 0; 
         $nominationUser = NominationUser::where('user_id', Auth::user()->id)->where('category_id', $id)->first();
-        $nominatedCandidate = 0;
+            $nominatedCandidate = 0;
 
-        if ($nominationUser) {
-            $hasNominatedBefore = 1;
+        if (Auth::user()->role_id > 2) {
+            if ($nominationUser) {
+                $hasNominatedBefore = 1;
 
-             // get the details of the candidate nominated
-            $nominatedCandidate = Nomination::find($nominationUser['nomination_id']);
+                 // get the details of the candidate nominated
+                $nominatedCandidate = Nomination::find($nominationUser['nomination_id']);
 
-            Flash::error('You have already nominated '. $nominatedCandidate->name .' in this Category');
+                Flash::error('You have already nominated '. $nominatedCandidate->name .' in this Category');
+            }
+
         }
-
+       
          // check if user has voted before
         $checkVote = Voting::where('user_id', Auth::user()->id)->where('category_id', $category->id)->first();
 
@@ -155,7 +158,7 @@ class CategoryController extends AppBaseController
                                        ->with('checkVote', $checkVote)
                                        ->with('nextCategory', $nextCategory)
                                        ->with('previousCategory', $previousCategory);
-            }
+        }
 
         return view('categories.show')->with('category', $category)
                                       ->with('nominatedCandidate', $nominatedCandidate)
@@ -165,7 +168,7 @@ class CategoryController extends AppBaseController
                                       ->with('checkVote', $checkVote)
                                       ->with('nextCategory', $nextCategory)
                                       ->with('previousCategory', $previousCategory);
-        }
+    }
 
     /**
      * Show the form for editing the specified Category.
