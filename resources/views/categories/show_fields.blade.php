@@ -3,18 +3,14 @@
         <ul class="nav nav-tabs">
 
             <!-- this view is only accesible to a normal user -->
-            @if(Auth::user()->role_id == 4 && $isWithinNominationPeriod == 'YES')
+            @if($isWithinNominationPeriod == 'YES')
                 <li class="active"><a href="#nominate" data-toggle="tab">Nominate</a></li>
             @endif
 
             <!-- this view is only accesible to the admin. only admin can see the list of all nominees -->
                 
                 @if(Auth::user()->role_id < 3 || $isWithinVotingPeriod == 'YES')
-                    <li class="
-                    @if(Auth::user()->role_id != 4)
-                        active
-                    @endif
-                    "><a href="#nominees" data-toggle="tab">
+                    <li><a href="#nominees" data-toggle="tab">
                     @if(Auth::user()->role_id < 3)
                         Nominees
                     @elseif(Auth::user()->role_id == 4)
@@ -25,7 +21,7 @@
         </ul>
         
         <div class="tab-content">
-            @if(Auth::user()->role_id == 4 && $isWithinNominationPeriod == 'YES')
+            @if($isWithinNominationPeriod == 'YES')
             <div class="active tab-pane" id="nominate">
                 <!-- show nomination form if user has not nominated any candidate for this category before -->
                 @if(!isset($hasNominatedBefore) || $hasNominatedBefore === 0)
@@ -98,10 +94,10 @@
                 @endif
                 " id="nominees">
 
-                {{-- <!-- list of admin approved nominees -->
-                <h3> Nominees</h3>
+                <!-- list of admin approved nominees -->
+                <h3> Approved Nominees</h3>
 
-                @if(count($selectedNominations) > 0)
+                @if(isset($selectedNominations))
                     <div class="box box-primary">
                         <div class="box-body">
                                 @include('nominations.selected-nominees')
@@ -109,7 +105,7 @@
                     </div>
                 @else
                     <p>No Approved Nominee yet</p>
-                @endif --}}
+                @endif
 
                 @if(Auth::user()->role_id < 3)                
                 <!-- list of all nominees -->
