@@ -7,7 +7,7 @@
         </div>
 
         <div class="widget-user-image">
-          <img class="img-circle" src="{{$nomination->avatar}}" alt="{{$nomination->name}}">
+            <img class="img-circle" src="{{asset('storage/uploads/images/'.$nomination->id.'/' .$nomination->image)}}" alt="{{$nomination->name}}">
         </div>
 
         <div class="box-footer">
