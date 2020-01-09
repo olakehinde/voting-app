@@ -131,8 +131,9 @@
 
         <!-- Main Footer -->
         <footer class="main-footer" style="max-height: 100px;text-align: center">
-            <strong>Copyright © 2018.</strong> All rights reserved.
-            <p>Built with Love by <a href="https://github.com/olakehinde">Olamide</a></p>
+            <strong>Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+            </strong> All rights reserved.
+            <p>Built with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://github.com/olakehinde">Olamide</a></p>
         </footer>
 
     </div>
