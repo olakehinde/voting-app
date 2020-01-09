@@ -54,7 +54,7 @@
                     @elseif($isWithinVotingPeriod == 'YES')
                         Voting
                     @else
-                        Voting and Nomination
+                        Voting & Nomination
                     @endif
                     App
                 </b>
@@ -131,8 +131,7 @@
 
         <!-- Main Footer -->
         <footer class="main-footer" style="max-height: 100px;text-align: center">
-            <strong>Copyright &copy;<script>document.write(new Date().getFullYear());</script>
-            </strong> All rights reserved.
+            <strong>Copyright &copy; <script>document.write(new Date().getFullYear());</script>.</strong> All rights reserved.
             <p>Built with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://github.com/olakehinde">Olamide</a></p>
         </footer>
 
